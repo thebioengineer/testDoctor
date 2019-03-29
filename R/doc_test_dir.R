@@ -14,7 +14,7 @@
 #' @param ... Additional arguments passed to [grepl()] to control filtering.
 
 #'   warnings.
-#' @inheritParams doc_file
+#' @inheritParams doc_test_file
 #'
 #' @export
 #' @examples

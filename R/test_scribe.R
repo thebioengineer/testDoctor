@@ -1,3 +1,10 @@
+
+#' object for managing the recording of tests and their results
+#''
+#' @keywords internal
+#' @export
+#' @importFrom R6 R6Class
+#' @importFrom tibble tibble add_row
 test_scribe<- R6::R6Class("Test_Scribe",
                           public = list(
                             results = tibble(expectation=character(),

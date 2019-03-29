@@ -1,7 +1,23 @@
+#' Run all tests in directory or package, and generage nice documentation
+#'
+#' @description
+#' Use `doctor_checkup()` for a collection of tests in a directory;
+#'
+#' Framework is built to work on top of the `testthat` library, so no changes to your tests need to be made to make this work.
+#' Your outputs will be saved to a markdown document in the tests folder
+#'
+#' @param pkg path to package
+#' @param document the name of the document to write to. If left as "", writes to console.
+#' @param compile the name of the document to write to. If left as "", writes to console.
 
-test_check
+#' @export
+#'
+#' @import devtools
+#' @import here
+#' @import withr
+#' @importFrom rmarkdown pandoc_convert
 
-doctor_checkup<-function(pkg=".",document=""){
+doctor_checkup<-function(pkg=".",document="",compile=NULL){
 
   if(!is.character(document)){
     stop("document argument must either be an empty string or the path to an output file")
@@ -32,6 +48,10 @@ doctor_checkup<-function(pkg=".",document=""){
   }
 
   cat(paste(testoutput,collapse="\n"),file = document)
+
+  if(!is.null(compile) & document != ""){
+    rmarkdown::render(document,output_format = compile)
+  }
 }
 
 

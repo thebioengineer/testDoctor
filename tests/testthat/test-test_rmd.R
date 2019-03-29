@@ -17,3 +17,16 @@ test_that("One passes, one fails", {
   expect_equal(3 * 2, 42)
 
 })
+
+
+
+test_that("Test Large Test Inputs", {
+
+  x<-data.frame(x=runif(25),
+             y=LETTERS[1:25])
+
+
+  expect_equal(x, data.frame(x=runif(25),
+                             y=LETTERS[25:1]))
+
+})

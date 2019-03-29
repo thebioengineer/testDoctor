@@ -15,8 +15,22 @@ doc_test_dir(path, filter = NULL, env = test_env(), ...,
 regular expression will be executed.  Matching will take on the file
 name after it has been stripped of `"test-"` and `".R"`.}
 
+\item{env}{environment in which to execute the tests}
+
 \item{...}{Additional arguments passed to [grepl()] to control filtering.
 warnings.}
+
+\item{encoding}{File encoding, default is "unknown"
+`unknown`.}
+
+\item{load_helpers}{Source helper files before running the tests?}
+
+\item{stop_on_failure}{If `TRUE`, throw an error if any tests fail.}
+
+\item{stop_on_warning}{If `TRUE`, throw an error if any tests generate}
+
+\item{wrap}{Automatically wrap all code within [test_that()]? This ensures
+that all expectations are reported, even if outside a test block.}
 
 \item{package}{package name}
 }
