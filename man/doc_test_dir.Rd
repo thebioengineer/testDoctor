@@ -41,5 +41,5 @@ Provides an alternate to the test_dir functionality in the `testhat` package,
 and generates more thorough documentation surrounding the tests.
 }
 \examples{
-\dontrun{test_package("testDoctor")}
+\dontrun{doc_test_dir("tests/testthat")}
 }

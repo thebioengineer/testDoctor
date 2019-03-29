@@ -18,7 +18,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{test_package("testDoctor")}
+#' \dontrun{doc_test_dir("tests/testthat")}
 
 doc_test_dir <-function (path, filter = NULL,
                       env = test_env(), ...,
@@ -49,6 +49,7 @@ doc_test_dir <-function (path, filter = NULL,
   paths <- find_test_scripts(path, filter, ...)
 
   doc_test_files(paths, env = env, stop_on_failure = stop_on_failure,
-             stop_on_warning = stop_on_warning, wrap = wrap)
+             stop_on_warning = stop_on_warning,
+             wrap = wrap)
 }
 

@@ -12,13 +12,17 @@
 doctored_test_results<-function(desc,code,scribe){
 
   results<-scribe$return_results()
-  names(results)<-c("Expectation","Result")
+  names(results)<-c("Expectation","Result","type")
   results$Result<-gsub("\\n.*$","",results$Result)
+  successful_results<-results[results$type=="success",
+                              c("Expectation","Result")] #means that the test was ran successfully, not that it passes
 
   cat(paste("###",desc,"\n"))
   cat("```r\n")
-  cat(paste(code[-1],collapse = "\n"),"\n\n")
+  cat(paste(code[-1],collapse = "\n"),"\n")
   cat("```\n")
-  cat(paste(knitr::kable(results, format = "markdown",row.names=FALSE),collapse = "\n"),"\n")
+  cat(paste(knitr::kable(successful_results, format = "markdown",row.names=FALSE),collapse = "\n"),"\n")
   cat("\n\n")
+
+  # return(!any(results$Result%in%c("error","failure")))
 }

@@ -29,7 +29,10 @@ doc_source_file <- function(path, env = test_env(), chdir = TRUE,
     on.exit(setwd(old_dir), add = TRUE)
   }
 
-  invisible(doc_test_code(exprs,env = env))
+
+
+  invisible(eval(exprs,env = env))
+
 }
 
 doctoredExpression<-function(path){
@@ -38,11 +41,11 @@ doctoredExpression<-function(path){
 
   #replace context with doctored_context
   if(any(grepl("context",lines))){
-    lines[grepl("context",lines)]<-gsub("context","testDoctor::doctored_context", lines[grepl("context",lines)])
+    lines[grepl("context",lines)]<-gsub("context","testDoctor:::doctored_context", lines[grepl("context",lines)])
   }
 
   if(any(grepl("test_that",lines))){
-    lines[grepl("test_that",lines)]<-gsub("test_that","testDoctor::doctored_test_that",lines[grepl("test_that",lines)])
+    lines[grepl("test_that",lines)]<-gsub("test_that","testDoctor:::doctored_test_that",lines[grepl("test_that",lines)])
   }
 
  parse(

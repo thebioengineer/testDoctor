@@ -10,14 +10,16 @@ doctored_test_that <- function(desc, code) {
   testcodeOutput<-doc_test_code(code, env = parent.frame(),scribe=scribe)
   doctored_test_results(desc,code,scribe)
   # testcodeOutput
-  return(scribe)
+  # scribe$test_results
+  # scribe
 }
 
 
 doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) {
+
   ok <- TRUE
 
-  register_expectation <- function(e) {
+  register_expectation <- function(e,type) {
     calls <- e$expectation_calls
     srcref <- testthat:::find_first_srcref(calls)
     e <- testthat:::as.expectation(e, srcref = srcref)
@@ -25,9 +27,10 @@ doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) 
     e$start_frame <- attr(calls, "start_frame")
     e$end_frame <- e$start_frame + length(calls) - 1L
     ok <<- ok && testthat:::expectation_ok(e)
-    scribe$add_result(result = e)
+    scribe$add_result(result = e,type=type)
   }
   frame <- sys.nframe()
+
   frame_calls <- function(start_offset, end_offset, start_frame = frame) {
     sys_calls <- sys.calls()
     start_frame <- start_frame + start_offset
@@ -70,14 +73,13 @@ doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) 
 
     # Error will be handled by handle_fatal() if this fails; need to do it here
     # to be able to debug with the DebugReporter
-    register_expectation(e)
+    register_expectation(e,"error")
 
     e$handled <- TRUE
     test_error <<- e
   }
 
   handle_fatal <- function(e) {
-
     handled <<- TRUE
     # Error caught in handle_error() has precedence
     if (!is.null(test_error)) {
@@ -91,29 +93,31 @@ doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) 
       e$expectation_calls <- frame_calls(0, 0)
     }
 
-    register_expectation(e)
+    register_expectation(e,"fatal")
   }
 
   handle_expectation <- function(e) {
     handled <<- TRUE
     e$expectation_calls <- frame_calls(11, 6)
-    register_expectation(e)
+    register_expectation(e,"success")
     invokeRestart("continue_test")
   }
+
   handle_warning <- function(e) {
     # When options(warn) >= 2, a warning will be converted to an error.
     # So, do not handle it here so that it will be handled by handle_error.
     if (getOption("warn") >= 2) return()
-
     handled <<- TRUE
     e$expectation_calls <- frame_calls(11, 5)
-    register_expectation(e)
+    register_expectation(e,"warning")
     invokeRestart("muffleWarning")
   }
+
   handle_message <- function(e) {
     handled <<- TRUE
     invokeRestart("muffleMessage")
   }
+
   handle_skip <- function(e) {
     handled <<- TRUE
 
@@ -124,7 +128,7 @@ doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) 
       e$expectation_calls <- frame_calls(11, 2)
     }
 
-    register_expectation(e)
+    register_expectation(e,"skip")
     signalCondition(e)
   }
 

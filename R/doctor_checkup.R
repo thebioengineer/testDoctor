@@ -40,10 +40,10 @@ doctor_checkup<-function(pkg=".",document="",compile=NULL){
                         do.call(testDoctor::doc_test_dir, testthat_args)))})
 
   if(document!=""){
-    testoutput<-c(paste("#",pkg$package),
-                  paste("####",pkg$title),
-                  paste("##### ",pkg$version),
-                  paste0("*",Sys.Date(),"*"),"\n\n\n\n",
+    testoutput<-c(paste("# Package:",pkg$package),
+                  paste("#### Title:",pkg$title),
+                  paste("##### Version:",pkg$version),
+                  paste0("*",Sys.Date(),"*"),"\n\n",
                   testoutput)
   }
 
@@ -55,43 +55,65 @@ doctor_checkup<-function(pkg=".",document="",compile=NULL){
 }
 
 
-#
-# doctor_visit <- function(package,
-#                        filter = NULL,
-#                        reporter = check_reporter(),
-#                        ...,
-#                        stop_on_failure = TRUE,
-#                        stop_on_warning = FALSE,
-#                        wrap = TRUE,
-#                        outputfile=paste0("test_results-",Sys.Date(),".md")) {
-#   library(testthat)
-#   require(package, character.only = TRUE)
-#
-#   env_test$in_test <- TRUE
-#   env_test$package <- package
-#   on.exit({
-#     env_test$in_test <- FALSE
-#     env_test$package <- NULL
-#   })
-#
-#   test_path <- "testthat"
-#   if (!utils::file_test("-d", test_path)) {
-#     stop("No tests found for ", package, call. = FALSE)
-#   }
-#
-#   testOutput<-capture.output({testDoctor::doc_test_dir(
-#     path = test_path,
-#     filter = filter,
-#     reporter = reporter,
-#     ...,
-#     stop_on_failure = stop_on_failure,
-#     stop_on_warning = stop_on_warning,
-#     wrap = wrap
-#   )})
-#
-#   write(testOutput)
-#
-# }
-#
+#' @export
+doctor_visit <- function(package,
+                       filter = NULL,
+                       ...,
+                       stop_on_failure = TRUE,
+                       stop_on_warning = FALSE,
+                       wrap = TRUE) {
+
+  library(testthat)
+  library(testDoctor)
+
+  require(package, character.only = TRUE)
+
+  Doctors_office$in_test <- TRUE
+  Doctors_office$package <- package
+  on.exit({
+    Doctors_office$in_test <- FALSE
+    Doctors_office$package <- NULL
+  })
+
+  test_path <- "testthat"
+  if (!utils::file_test("-d", test_path)) {
+    stop("No tests found for ", package, call. = FALSE)
+  }
+
+  testoutput<-capture.output({testDoctor::doc_test_dir(
+    path = test_path,
+    filter = filter,
+    stop_on_failure = stop_on_failure,
+    stop_on_warning = stop_on_warning,
+    wrap = wrap
+  )})
+
+  test_results<-"testDoctor_Results"
+  if(!dir.exists(test_results)){
+    dir.create(test_results)
+  }
+
+  pkg<-packageDescription(package)
 
 
+  testoutput<-c(paste("# Package:",pkg$Package),
+                paste("#### Title:",pkg$Title),
+                paste("##### Version:",pkg$Version),
+                paste0("*",Sys.Date(),"*"),"\n\n",
+                testoutput)
+
+  cat(paste(testoutput,collapse="\n"),file = file.path(test_results,"test_Results.md"))
+
+  rmarkdown::render(file.path(test_results,"test_Results.md"),
+                    output_format = "pdf_document")
+
+
+  file.rename(from = file.path(test_results,"test_Results.pdf"),
+              to = file.path(test_results,paste0("test_Results-",Sys.Date(),".pdf")))
+}
+
+# Environment utils -------------------------------------------------------
+
+Doctors_office <- new.env(parent = emptyenv())
+Doctors_office$in_test <- FALSE
+Doctors_office$package <- NULL

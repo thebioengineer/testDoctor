@@ -4,12 +4,14 @@
 \alias{doctor_checkup}
 \title{Run all tests in directory or package, and generage nice documentation}
 \usage{
-doctor_checkup(pkg = ".", document = "")
+doctor_checkup(pkg = ".", document = "", compile = NULL)
 }
 \arguments{
 \item{pkg}{path to package}
 
 \item{document}{the name of the document to write to. If left as "", writes to console.}
+
+\item{compile}{the name of the document to write to. If left as "", writes to console.}
 }
 \description{
 Use `doctor_checkup()` for a collection of tests in a directory;
