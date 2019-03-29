@@ -1,0 +1,4 @@
+library(testthat)
+library(testDoctor)
+
+doctor_checkup("testDoctor")

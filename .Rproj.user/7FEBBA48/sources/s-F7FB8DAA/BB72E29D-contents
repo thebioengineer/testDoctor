@@ -1,0 +1,13 @@
+---
+title: "testDoctor"
+output:
+  pdf_document: default
+  pdf: default
+  html_document:
+    df_print: paged
+date: "`r Sys.time()`"
+---
+
+```{r test_setup, echo=FALSE}
+testDoctor::doctor_checkup()
+```

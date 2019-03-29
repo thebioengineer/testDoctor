@@ -1,0 +1,9 @@
+{
+    "path" : "~/testDoctor/R",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

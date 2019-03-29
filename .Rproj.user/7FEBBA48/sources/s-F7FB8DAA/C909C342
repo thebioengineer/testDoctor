@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553817766564.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C909C342",
+    "lastKnownWriteTime" : 1553819694,
+    "last_content_update" : 1553819694833,
+    "path" : "~/testDoctor/R/doctor_checkup.R",
+    "project_path" : "R/doctor_checkup.R",
+    "properties" : {
+        "cursorPosition" : "75,0",
+        "scrollLine" : "45",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

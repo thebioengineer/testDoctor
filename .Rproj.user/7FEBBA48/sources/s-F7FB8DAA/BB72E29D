@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553709069635.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BB72E29D",
+    "lastKnownWriteTime" : 1553818834,
+    "last_content_update" : 1553818834097,
+    "path" : "~/testDoctor/inst/templates/testDoctor.Rmd",
+    "project_path" : "inst/templates/testDoctor.Rmd",
+    "properties" : {
+        "cursorPosition" : "12,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
