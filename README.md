@@ -16,7 +16,7 @@ expect_equal(10/2, 5)
 ```
 |Expectation           |Result  |
 |:---------------------|:-------|
-|expect_equal(10/2, 5) |success | 
+|expect_equal(10/2, 5) |Success | 
 
 
 ### test123 
@@ -38,7 +38,7 @@ expect_equal(2 * 2, 4)
 ```
 |Expectation            |Result  |
 |:----------------------|:-------|
-|expect_equal(2 * 2, 4) |success | 
+|expect_equal(2 * 2, 4) |Success | 
 
 
 ### multiple tests work! 
@@ -48,7 +48,7 @@ expect_equal(3 * 2, 6)
 ```
 |Expectation            |Result  |
 |:----------------------|:-------|
-|expect_equal(3 * 2, 6) |success | 
+|expect_equal(3 * 2, 6) |Success | 
 
 
 ### One passes, one fails 
@@ -59,6 +59,6 @@ expect_equal(3 * 2, 42)
 ```
 |Expectation             |Result                 |
 |:-----------------------|:----------------------|
-|expect_equal(3 * 2, 6)  |success                |
+|expect_equal(3 * 2, 6)  |Success                |
 |expect_equal(3 * 2, 42) |3 * 2 not equal to 42. | 
 
