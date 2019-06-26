@@ -14,7 +14,7 @@ doctored_test_results<-function(desc,code,scribe){
   results<-scribe$return_results()
   names(results)<-c("Expectation","Result","type")
   results$Result<-gsub("\\n.*$","",results$Result)
-  successful_results<-results[results$type=="success",
+  successful_results<-results[results$type=="Success",
                               c("Expectation","Result")] #means that the test was ran successfully, not that it passes
 
   cat(paste("###",desc,"\n"))
