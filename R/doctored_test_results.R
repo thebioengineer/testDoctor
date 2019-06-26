@@ -21,7 +21,7 @@ doctored_test_results<-function(desc,code,scribe){
   cat("```r\n")
   cat(paste(code[-1],collapse = "\n"),"\n")
   cat("```\n")
-  cat(paste(knitr::kable(successful_results, format = "markdown",row.names=FALSE),collapse = "\n"),"\n")
+  cat(paste(knitr::kable(successful_results, format = "markdown",row.names=FALSE,escape=TRUE),collapse = "\n"),"\n")
   cat("\n\n")
 
   # return(!any(results$Result%in%c("error","failure")))
