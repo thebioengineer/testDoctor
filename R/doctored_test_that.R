@@ -99,7 +99,7 @@ doc_test_code <- function(code, env = test_env(), skip_on_empty = TRUE, scribe) 
   handle_expectation <- function(e) {
     handled <<- TRUE
     e$expectation_calls <- frame_calls(11, 6)
-    register_expectation(e,"success")
+    register_expectation(e,"Success")
     invokeRestart("continue_test")
   }
 
